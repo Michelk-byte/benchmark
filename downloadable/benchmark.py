@@ -1,0 +1,18 @@
+import time
+import numpy as np
+import json
+import requests
+from fonction import *
+import socket
+
+
+url = "https://mtj-benchmarks.herokuapp.com/benchmarks"
+score1=bubbleSortBench()
+score2=fileEditBench()
+score3=binaryTreeBench()
+score4=hanoiBench()
+score5=networkBench()
+obj = {"hostname": socket.gethostname(), "benchmarks" : [ {"name" : "bubblesort" , "score" : str(score1)} , {"name" : "fileEdit" , "score" : str(score2)}, {"name" : "binaryTree" , "score" : str(score3)}, {"name" : "hanoi" , "score" : str(score4)}, {"name" : "network" , "score" : str(score5)} ] }
+response_json = requests.post(url, data = json.dumps(obj))
+
+print(response_json.text)
